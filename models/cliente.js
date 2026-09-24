@@ -9,7 +9,7 @@ class Cliente{
 
     validar(){
         if(!this.nombre || this.nombre.trim().length < 3){
-            throw new Error("El nombre del cliente es obligatorio (m{inimo 3 caracteres).");
+            throw new Error("El nombre del cliente es obligatorio (mínimo 3 caracteres).");
         }
         if(!/^[\w.+-]+@[\w-]+\.[a-zA-Z]{2,}$/.test(this.correo)){
             throw new Error("Correo electrónico inválido.");
@@ -21,3 +21,17 @@ class Cliente{
 }
 
 export default Cliente;
+
+
+/*
+Prueba de creación de la clase:
+
+const cliente = new Cliente({
+    nombre: "Ana",
+    telefono: "31003100",
+    correo: "analitiac@example.com",
+    fechaIngreso: new Date()
+});
+
+console.log("Clase Cliente creada correctamente:", cliente);
+*/
