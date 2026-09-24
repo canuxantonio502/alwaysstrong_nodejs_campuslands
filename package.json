@@ -19,7 +19,7 @@
   },
   "license": "ISC",
   "author": "canuxantonio502",
-  "type": "modules",
+  "type": "module",
   "main": "app.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
