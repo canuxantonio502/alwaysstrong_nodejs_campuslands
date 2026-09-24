@@ -1,0 +1,31 @@
+{
+  "name": "alwaysstrong_nodejs_campuslands",
+  "version": "0.0.1",
+  "description": "Management application for AlwayStrong Gym, using NodeJS",
+  "keywords": [
+    "NodeJS",
+    "MySQL",
+    "dayjs",
+    "chalk",
+    "SOLID"
+  ],
+  "homepage": "https://github.com/canuxantonio502/alwaysstrong_nodejs_campuslands#readme",
+  "bugs": {
+    "url": "https://github.com/canuxantonio502/alwaysstrong_nodejs_campuslands/issues"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/canuxantonio502/alwaysstrong_nodejs_campuslands.git"
+  },
+  "license": "ISC",
+  "author": "canuxantonio502",
+  "type": "modules",
+  "main": "app.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "dependencies": {
+    "dotenv": "^18.0.3",
+    "mysql2": "^3.24.4"
+  }
+}
