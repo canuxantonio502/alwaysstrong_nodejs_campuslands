@@ -11,8 +11,14 @@ class ClienteRepository{
     async crear(cliente){
         const [result] = await pool.query(
             "INSERT INTO clientes (nombre, telefono, correo, fecha_ingreso, estado) VALUES (?, ?, ?, ?, 'activo')",
-            [cliente.nombre, cliente.telefono, cliente.correo, cliente.fecha_ingreso]);
+            [cliente.nombre, cliente.telefono, cliente.correo, formatoFechaMySQL(cliente.fecha_ingreso)]
+        );
         return result.insertId;
+    }
+
+    async buscarPorId(id){
+        const [rows] = await pool.query("SELECT * FROM clientes WHERE id_cliente = ?", [id]);
+        return rows[0] || null;
     }
 
     async listar(){
