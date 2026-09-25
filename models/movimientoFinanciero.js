@@ -17,6 +17,12 @@ class MovimientoFinanciero {
         if (this.tipo && !tiposPermitidos.includes(this.tipo)){
             throw new Error(`Los tipos permitidos son: ${tiposPermitidos}.`)
         }
+        if (this.tipo === 'ingreso' && (!this.idCliente || !this.idContrato)){
+            throw new Error("Los ingresos deben contar con Id de cliente y de contrato.")
+        }
+        if (this.tipo === 'egreso' && (this.idCliente || this.idContrato)){
+            throw new Error("Los egresos no deben contar con Id de cliente o de contrato.")
+        }
         if (this.categoria && this.categoria.length > 50){
             throw new Error("La categoria no puede exceder los 50 caracteres.")
         }
@@ -29,7 +35,7 @@ class MovimientoFinanciero {
 export default MovimientoFinanciero;
 
 
-
+/*
 const movimiento = new MovimientoFinanciero({
     tipo: 'ingreso',
     categoria: 'cuota semanal',
@@ -38,3 +44,4 @@ const movimiento = new MovimientoFinanciero({
 })
 
 console.log(movimiento);
+*/
