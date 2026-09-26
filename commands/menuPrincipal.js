@@ -1,3 +1,5 @@
+import menuClientes from './clienteCommands.js';
+import menuPlanes from './planCommands.js';
 import inquirer from 'inquirer';
 import chalk from 'chalk';
 import pool from '../config/database.js';
@@ -41,12 +43,10 @@ const mostrarMenuPrincipal = async () => {
 
         switch(opcion){
             case 'clientes':
-                console.log(chalk.yellow(`\nEntrando al módulo de Clientes`));
-                await pausar();
+                await menuClientes();
                 break;
             case 'planes':
-                console.log(chalk.yellow(`\nEntrando al módulo de Planes`));
-                await pausar();
+                await menuPlanes();
                 break;
             case 'seguimientos':
                 console.log(chalk.yellow(`\nEntrando al módulo de Seguimientos`));
@@ -72,4 +72,4 @@ const mostrarMenuPrincipal = async () => {
     }
 }
 
-export default mostrarMenuPrincipal();
+export default mostrarMenuPrincipal;
