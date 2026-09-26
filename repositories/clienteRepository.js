@@ -1,7 +1,7 @@
 import pool from '../config/database.js';
 
 // con esta función nos aseguramos que todas las fechas pasen a la base de datos en el formato estandar YYYY-MM-DD;
-const formatoFechaMySQL = (fecha) => {
+export const formatoFechaMySQL = (fecha) => {
     if (!fecha) return null;
     const d = new Date(fecha);
     return `${d.getFullYear()}-${String(d.getMonth() + 1).padStart(2, '0')}-${String(d.getDate()).padStart(2, '0')}`;
