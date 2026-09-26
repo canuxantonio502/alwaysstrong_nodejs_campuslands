@@ -13,7 +13,7 @@ const pausar = async () => {
     ]);
 }
 
-export const mostrarMenuPrincipal = async () => {
+const mostrarMenuPrincipal = async () => {
     let salir = false;
 
     while(!salir){
@@ -71,3 +71,5 @@ export const mostrarMenuPrincipal = async () => {
         }
     }
 }
+
+export default mostrarMenuPrincipal();
