@@ -24,7 +24,7 @@ export const mostrarMenuPrincipal = async () => {
 
         const { opcion } = await inquirer.prompt([
             {
-                type: 'list',
+                type: 'select',
                 name: 'opcion',
                 message: '¿Qué módulo deseas gestionar?',
                 choices: [
