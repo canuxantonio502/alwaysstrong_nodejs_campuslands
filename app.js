@@ -11,4 +11,4 @@ const iniciarApp = async () => {
     }
 }
 
-iniciarApp;
+iniciarApp();
