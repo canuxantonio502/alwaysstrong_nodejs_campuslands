@@ -52,6 +52,8 @@ const mostrarMenuPlanes = async () => {
             case 'crear':
                 console.clear()
                 console.log(chalk.blue.bold('============================================'));
+                console.log(chalk.blue.bold('=             GYM ALWAYS STRONG            ='));
+                console.log(chalk.blue.bold('=------------------------------------------='));
                 console.log(chalk.blue.bold('=          CREACIÓN DE NUEVO PLAN          ='));
                 console.log(chalk.blue.bold('============================================'));
                 await pausar();
@@ -59,6 +61,8 @@ const mostrarMenuPlanes = async () => {
             case 'buscar':
                 console.clear()
                 console.log(chalk.blue.bold('============================================'));
+                console.log(chalk.blue.bold('=             GYM ALWAYS STRONG            ='));
+                console.log(chalk.blue.bold('=------------------------------------------='));
                 console.log(chalk.blue.bold('=              BÚSQUEDA DE PLAN            ='));
                 console.log(chalk.blue.bold('============================================'));
                 await pausar();
@@ -66,6 +70,8 @@ const mostrarMenuPlanes = async () => {
             case 'listar':
                 console.clear()
                 console.log(chalk.blue.bold('============================================'));
+                console.log(chalk.blue.bold('=             GYM ALWAYS STRONG            ='));
+                console.log(chalk.blue.bold('=------------------------------------------='));
                 console.log(chalk.blue.bold('=             LISTADO DE PLANES            ='));
                 console.log(chalk.blue.bold('============================================'));
                 await pausar();
@@ -73,6 +79,8 @@ const mostrarMenuPlanes = async () => {
             case 'actualizar':
                 console.clear()
                 console.log(chalk.blue.bold('============================================'));
+                console.log(chalk.blue.bold('=             GYM ALWAYS STRONG            ='));
+                console.log(chalk.blue.bold('=------------------------------------------='));
                 console.log(chalk.blue.bold('=            ACTUALIZACIÓN PLAN            ='));
                 console.log(chalk.blue.bold('============================================'));
                 await pausar();
@@ -80,6 +88,8 @@ const mostrarMenuPlanes = async () => {
             case 'eliminar':
                 console.clear()
                 console.log(chalk.blue.bold('============================================'));
+                console.log(chalk.blue.bold('=             GYM ALWAYS STRONG            ='));
+                console.log(chalk.blue.bold('=------------------------------------------='));
                 console.log(chalk.blue.bold('=            ELIMINACIÓN DE PLAN           ='));
                 console.log(chalk.blue.bold('============================================'));
                 await pausar();
