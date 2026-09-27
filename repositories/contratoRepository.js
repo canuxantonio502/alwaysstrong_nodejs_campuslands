@@ -1,5 +1,5 @@
 import pool from '../config/database.js';
-import formatoFechaMySQL from './clienteRepository.js';
+import { formatoFechaMySQL } from './clienteRepository.js';
 
 class ContratoRepository {
     async crear(contrato) {
@@ -11,7 +11,7 @@ class ContratoRepository {
     }
 
     async buscarId(id){
-        const [rows] = await pool.query("SELECT * FROM contratos WHERE id = ?", [id])
+        const [rows] = await pool.query("SELECT * FROM contratos WHERE id_contrato = ?", [id])
         return rows[0] || null;
     }
 

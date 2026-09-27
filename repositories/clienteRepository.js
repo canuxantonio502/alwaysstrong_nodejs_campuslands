@@ -11,7 +11,7 @@ class ClienteRepository{
     async crear(cliente){
         const [result] = await pool.query(
             "INSERT INTO clientes (nombre, telefono, correo, fecha_ingreso, estado) VALUES (?, ?, ?, ?, 'activo')",
-            [cliente.nombre, cliente.telefono, cliente.correo, formatoFechaMySQL(cliente.fecha_ingreso)]
+            [cliente.nombre, cliente.telefono, cliente.correo, formatoFechaMySQL(cliente.fechaIngreso)]
         );
         return result.insertId;
     }
@@ -24,6 +24,19 @@ class ClienteRepository{
     async listar(){
         const [rows] = await pool.query("SELECT * FROM clientes ORDER BY fecha_ingreso");
         return rows;
+    }
+
+    async actualizar(id, cliente){
+        const [result] = await pool.query(
+            "UPDATE clientes SET nombre = ?, telefono = ?, correo = ?, fecha_ingreso = ?, estado = ? WHERE id_cliente = ?",
+            [cliente.nombre, cliente.telefono, cliente.correo, formatoFechaMySQL(cliente.fechaIngreso), cliente.estado, id]
+        );
+        return result.affectedRows > 0;
+    }
+
+    async eliminar(id){
+        const [result] = await pool.query("DELETE FROM clientes WHERE id_cliente = ?", [id])
+        return result.affectedRows > 0;
     }
 }
 

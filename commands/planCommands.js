@@ -2,7 +2,7 @@ import inquirer from 'inquirer';
 import chalk from 'chalk';
 import pool from '../config/database.js';
 import { createInterface } from 'readline/promises';
-import ClienteRepository from '../repositories/clienteRepository.js';
+import PlanEntrenamientoRepository from '../repositories/clienteRepository.js';
 
 const rl = createInterface({
     input: process.stdin,
@@ -97,11 +97,6 @@ const mostrarMenuPlanes = async () => {
             case 'regresar':
                 salir = true;
                 console.log(chalk.green(`\nRegresando al menu principal...`));
-                
-                if (pool){
-                    await pool.end();
-                }
-                break;
         }
     }
 }

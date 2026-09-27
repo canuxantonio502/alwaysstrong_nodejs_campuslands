@@ -5,7 +5,7 @@ class Contrato {
         this.condiciones = condiciones;
         this.precio = precio;
         this.fechaInicio = fechaInicio ? new Date(fechaInicio) : null;
-        this.fechaFin = fechaInicio ? new Date(fechaInicio) : null;
+        this.fechaFin = fechaFin ? new Date(fechaFin) : null;
         this.estado = estado;
         this.validar();
     }

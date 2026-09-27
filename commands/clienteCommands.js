@@ -97,11 +97,6 @@ const mostrarMenuCliente = async () => {
             case 'regresar':
                 salir = true;
                 console.log(chalk.green(`\nRegresando al menu principal...`));
-                
-                if (pool){
-                    await pool.end();
-                }
-                break;
         }
     }
 }

@@ -1,10 +1,10 @@
 import pool from '../config/database.js';
-import formatoFechaMySQL from './clienteRepository.js';
+import { formatoFechaMySQL } from './clienteRepository.js';
 
 class SeguimientoRepository {
     async crear(seguimiento){
         const [result] = await pool.query(
-            "INSERT INTO seguimiento (id_contrato, fecha, peso, grasa_corporal, medidas, foto_url, comentarios) VALUES (?, ?, ?, ?, ?, ?, ?)",
+            "INSERT INTO seguimientos (id_contrato, fecha, peso, grasa_corporal, medidas, foto_url, comentarios) VALUES (?, ?, ?, ?, ?, ?, ?)",
             [seguimiento.idContrato, formatoFechaMySQL(seguimiento.fecha), seguimiento.peso, seguimiento.grasaCorporal, seguimiento.medidas, seguimiento.fotoUrl, seguimiento.comentarios]
         );
         return result.insertId;
@@ -16,14 +16,14 @@ class SeguimientoRepository {
     }
 
     async listar(){
-        const [rows] = await pool.query("SELECT * FROM seguimiento ORDER BY fecha DESC");
+        const [rows] = await pool.query("SELECT * FROM seguimientos ORDER BY fecha DESC");
         return rows;
     }
 
     async actualizar(id, seguimiento){
         const [result] = await pool.query(
             "UPDATE seguimientos SET id_contrato = ?, fecha = ?, peso = ?, grasa_corporal = ?, medidas = ?, foto_url = ?, comentarios = ? WHERE id_seguimiento = ?",
-            [seguimiento.idContrato, formatoFechaMySQL(seguimiento.fecha), seguimiento.peso, seguimiento.masaCorporal, seguimiento.medidas, seguimiento.fotoUrl, seguimiento.comentarios, id]
+            [seguimiento.idContrato, formatoFechaMySQL(seguimiento.fecha), seguimiento.peso, seguimiento.grasaCorporal, seguimiento.medidas, seguimiento.fotoUrl, seguimiento.comentarios, id]
         );
         return result.affectedRows > 0;
     }
