@@ -1,13 +1,7 @@
 import inquirer from 'inquirer';
 import chalk from 'chalk';
-import pool from '../config/database.js';
-import { createInterface } from 'readline/promises';
 import ClienteRepository from '../repositories/clienteRepository.js';
-
-const rl = createInterface({
-    input: process.stdin,
-    output: process.stdout
-});
+import Cliente from '../models/cliente.js';
 
 const pausar = async () => {
     console.log('\n');
@@ -56,8 +50,40 @@ const mostrarMenuCliente = async () => {
                 console.log(chalk.blue.bold('=------------------------------------------='));
                 console.log(chalk.blue.bold('=         CREACIÓN DE NUEVO CLIENTE        ='));
                 console.log(chalk.blue.bold('============================================'));
+                
+                const nuevoCliente = await inquirer.prompt([
+                    {
+                        type: 'input',
+                        name: 'nombre',
+                        message: 'Ingrese el nombre del cliente: '
+                    },
+                    {
+                        type: 'input',
+                        name: 'telefono',
+                        message: 'Ingrese el teléfono del cliente: '
+                    },
+                    {
+                        type: 'input',
+                        name: 'correo',
+                        message: 'Ingrese el correo del cliente: '
+                    },
+                    {
+                        type: 'input',
+                        name: 'fechaIngreso',
+                        message: 'Ingrese la fecha de ingreso (AAAA-MM-DD): '
+                    }
+                ]);
+                try {
+                    const cliente = new Cliente(nuevoCliente);
+                    const clienteRepository = new ClienteRepository();
+                    const id = await clienteRepository.crear(cliente);
+                    console.log(`Cliente creado con ID: ${id}`);
+                } catch (error) {
+                    console.log(chalk.red(error.message));
+                }
                 await pausar();
                 break;
+                
             case 'buscar':
                 console.clear()
                 console.log(chalk.blue.bold('============================================'));
@@ -65,6 +91,16 @@ const mostrarMenuCliente = async () => {
                 console.log(chalk.blue.bold('=------------------------------------------='));
                 console.log(chalk.blue.bold('=            BÚSQUEDA DE CLIENTE           ='));
                 console.log(chalk.blue.bold('============================================'));
+                const {idCliente} = await inquirer.prompt([
+                    {
+                        type: 'number',
+                        name: 'idCliente',
+                        message: 'Ingrese el ID del cliente: '
+                    }
+                ]);
+                const clienteRepository = new ClienteRepository();
+                const clienteHallado = await clienteRepository.buscarPorId(idCliente);
+                console.log(chalk.blue('Cliente encontrado: '), clienteHallado);
                 await pausar();
                 break;
             case 'listar':
