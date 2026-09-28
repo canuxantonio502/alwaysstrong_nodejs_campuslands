@@ -10,6 +10,11 @@ class FinanzasRepository{
         return result.insertId;
     }
 
+    async listar() {
+        const [rows] = await pool.query("SELECT * FROM movimientos_financieros ORDER BY fecha DESC");
+        return rows;
+    }
+
     async balancePorCliente(idCliente){
         const [rows] = await pool.query(
             `SELECT

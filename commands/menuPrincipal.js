@@ -1,6 +1,7 @@
 import menuClientes from './clienteCommands.js';
 import menuPlanes from './planCommands.js';
 import menuContratos from './contratoCommands.js';
+import menuFinanzas from './finanzasCommands.js';
 import inquirer from 'inquirer';
 import chalk from 'chalk';
 import pool from '../config/database.js';
@@ -63,8 +64,7 @@ const mostrarMenuPrincipal = async () => {
                 await pausar();
                 break;
             case 'finanzas':
-                console.log(chalk.yellow(`\nEntrando al módulo de Finanzas`));
-                await pausar();
+                await menuFinanzas();
                 break;
             case 'salir':
                 salir = true;
