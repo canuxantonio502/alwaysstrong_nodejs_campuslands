@@ -196,8 +196,9 @@ const mostrarMenuCliente = async () => {
                     }
                 ]);
                 try {
+                    const cliente = new Cliente(actualizarCliente)
                     const clienteRepository = new ClienteRepository();
-                    await clienteRepository.actualizar(idClienteUP, actualizarCliente);
+                    await clienteRepository.actualizar(idClienteUP, cliente);
                     const clienteActual = await clienteRepository.buscarPorId(idClienteUP);
                     console.log(chalk.blue('============ Cliente actualizado ==========='));
                     console.log(JSON.stringify(clienteActual, null, 2));
