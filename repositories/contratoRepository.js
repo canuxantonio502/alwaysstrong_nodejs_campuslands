@@ -1,6 +1,5 @@
 import pool from '../config/database.js';
 import { formatoFechaMySQL } from './clienteRepository.js';
-import asignarPlanACliente from '../commands/asignarContrato.js';
 
 class ContratoRepository {
     async crear(contrato) {
@@ -9,14 +8,6 @@ class ContratoRepository {
             [contrato.idCliente, contrato.idPlan, contrato.condiciones, contrato.precio, formatoFechaMySQL(contrato.fechaInicio), formatoFechaMySQL(contrato.fechaFin), contrato.estado]
         );
         return result.insertId;
-    }
-
-    async asignar(){
-    try {
-            await asignarPlanACliente();
-        } catch (error) {
-            console.log(chalk.red(error.message));
-        }
     }
 
     async buscarPorId(id){
@@ -30,10 +21,6 @@ class ContratoRepository {
     }
 
     async actualizar(id, contrato) {
-        const estadosPermitidos = ['activo', 'renovado', 'cancelado', 'finalizado'];
-                    if (this.estado && !estadosPermitidos.includes(this.estado)){
-                        throw new Error(`Estado inválido. Opciones: ${estadosPermitidos.join(', ')}.`);
-                    }
         const [result] = await pool.query(
             "UPDATE contratos SET fecha_fin = ?, estado = ? WHERE id_contrato = ?",
             [formatoFechaMySQL(contrato.fechaFin), contrato.estado, id]
