@@ -2,6 +2,7 @@ import inquirer from 'inquirer';
 import chalk from 'chalk';
 import Table from 'cli-table3'
 import ContratoRepository from '../repositories/contratoRepository.js';
+import ContratoService from '../services/contratoService.js';
 
 const pausar = async () => {
     console.log('\n');
@@ -17,7 +18,7 @@ const pausar = async () => {
 const mostrarMenuContratos = async () => {
     let salir = false;
 
-    while(!salir){
+    while (!salir) {
         console.clear();
         console.log(chalk.blue.bold('============================================'));
         console.log(chalk.blue.bold('=             GYM ALWAYS STRONG            ='));
@@ -31,17 +32,17 @@ const mostrarMenuContratos = async () => {
                 name: 'opcion',
                 message: '¿Qué desea hacer?',
                 choices: [
-                    {name: `1. ${chalk.cyan('Buscar')} contrato por ID`, value: 'buscar'},
-                    {name: `2. ${chalk.cyan('Listar')} todos los contratos`, value: 'listar'},
-                    {name: `3. ${chalk.cyan('Actualizar')} contrato`, value: 'actualizar'},
-                    {name: `4. ${chalk.cyan('Cancelar')} contrato`, value: 'eliminar'},
+                    { name: `1. ${chalk.cyan('Buscar')} contrato por ID`, value: 'buscar' },
+                    { name: `2. ${chalk.cyan('Listar')} todos los contratos`, value: 'listar' },
+                    { name: `3. ${chalk.cyan('Actualizar')} contrato`, value: 'actualizar' },
+                    { name: `4. ${chalk.cyan('Cancelar')} contrato`, value: 'eliminar' },
                     new inquirer.Separator(),
-                    {name: chalk.red('0. Regresar'), value: 'regresar'}
+                    { name: chalk.red('0. Regresar'), value: 'regresar' }
                 ]
             }
         ]);
 
-        switch(opcion){
+        switch (opcion) {
 
             case 'buscar':
                 console.clear()
@@ -62,7 +63,7 @@ const mostrarMenuContratos = async () => {
                     const contratoHallado = await contratoRepository.buscarPorId(idContrato);
                     console.log(chalk.blue('============== Plan encontrado ============='));
                     console.log(JSON.stringify(contratoHallado, null, 2));
-                }catch(error){
+                } catch (error) {
                     console.log(chalk.red(error.message));
                 };
                 await pausar();
@@ -75,7 +76,7 @@ const mostrarMenuContratos = async () => {
                 console.log(chalk.blue.bold('=------------------------------------------='));
                 console.log(chalk.blue.bold('=            LISTADO DE CONTRATOS          ='));
                 console.log(chalk.blue.bold('============================================'));
-                
+
                 const contratoRepository = new ContratoRepository();
                 const listaContratos = await contratoRepository.listar();
 
@@ -162,19 +163,19 @@ const mostrarMenuContratos = async () => {
                 console.log(chalk.blue.bold('=          CANCELACIÓN DE CONTRATO         ='));
                 console.log(chalk.blue.bold('============================================'));
                 const { idContratoDE } = await inquirer.prompt([
-                    {
+                    { 
                         type: 'number',
                         name: 'idContratoDE',
                         message: 'Ingrese el ID del contrato: '
                     }
                 ]);
                 try {
-                    const contratoRepository = new ContratoRepository();
-                    await contratoRepository.eliminar(idContratoDE);
+                    const contratoService = new ContratoService();
+                    await contratoService.cancelar(idContratoDE);
                     console.log(chalk.blue('============== Contrato cancelado =============='));
-                }catch(error){
+                } catch (error) {
                     console.log(chalk.red(error.message));
-                };
+                }
                 await pausar();
                 break;
             case 'regresar':
