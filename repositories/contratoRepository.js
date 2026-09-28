@@ -1,5 +1,6 @@
 import pool from '../config/database.js';
 import { formatoFechaMySQL } from './clienteRepository.js';
+import asignarPlanACliente from '../commands/asignarContrato.js';
 
 class ContratoRepository {
     async crear(contrato) {
@@ -8,6 +9,14 @@ class ContratoRepository {
             [contrato.idCliente, contrato.idPlan, contrato.condiciones, contrato.precio, formatoFechaMySQL(contrato.fechaInicio), formatoFechaMySQL(contrato.fechaFin), contrato.estado]
         );
         return result.insertId;
+    }
+
+    async asignar(){
+    try {
+            await asignarPlanACliente();
+        } catch (error) {
+            console.log(chalk.red(error.message));
+        }
     }
 
     async buscarId(id){

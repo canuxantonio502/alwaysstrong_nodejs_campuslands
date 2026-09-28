@@ -3,6 +3,7 @@ import chalk from 'chalk';
 import Table from 'cli-table3'
 import PlanEntrenamientoRepository from '../repositories/planRepository.js';
 import Plan from '../models/planEntrenamiento.js'
+import asignarPlanACliente from './asignarContrato.js';
 
 const pausar = async () => {
     console.log('\n');
@@ -31,12 +32,14 @@ const mostrarMenuPlanes = async () => {
                 type: 'select',
                 name: 'opcion',
                 message: '¿Qué desea hacer?',
+                loop: false,
                 choices: [
                     {name: `1. ${chalk.cyan('Crear')} un nuevo plan`, value: 'crear'},
-                    {name: `2. ${chalk.cyan('Buscar')} plan por ID`, value: 'buscar'},
-                    {name: `3. ${chalk.cyan('Listar')} todos los planes`, value: 'listar'},
-                    {name: `4. ${chalk.cyan('Actualizar')} plan`, value: 'actualizar'},
-                    {name: `5. ${chalk.cyan('Eliminar')} plan`, value: 'eliminar'},
+                    {name: `2. ${chalk.cyan('Asignar')} cliente a un plan`, value: 'asignar'},
+                    {name: `3. ${chalk.cyan('Buscar')} plan por ID`, value: 'buscar'},
+                    {name: `4. ${chalk.cyan('Listar')} todos los planes`, value: 'listar'},
+                    {name: `5. ${chalk.cyan('Actualizar')} plan`, value: 'actualizar'},
+                    {name: `6. ${chalk.cyan('Eliminar')} plan`, value: 'eliminar'},
                     new inquirer.Separator(),
                     {name: chalk.red('0. Regresar'), value: 'regresar'}
                 ]
@@ -87,6 +90,15 @@ const mostrarMenuPlanes = async () => {
                 } catch (error) {
                     console.log(chalk.red(error.message));
                 }                
+                await pausar();
+                break;
+
+            case 'asignar':
+                try {
+                    await asignarPlanACliente();
+                } catch (error) {
+                    console.log(chalk.red(error.message));
+                }
                 await pausar();
                 break;
 
@@ -207,7 +219,7 @@ const mostrarMenuPlanes = async () => {
                     const planRepository = new PlanEntrenamientoRepository();
                     await planRepository.actualizar(idPlanUP, plan);
                     const planActual = await planRepository.buscarPorId(idPlanUP);
-                    console.log(chalk.blue('============ Cliente actualizado ==========='));
+                    console.log(chalk.blue('============== Plan actualizado ============'));
                     console.log(JSON.stringify(planActual, null, 2));
                 } catch (error) {
                     console.log(chalk.red(error.message));

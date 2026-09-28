@@ -7,7 +7,7 @@ class ContratoFactory {
         return new Contrato({
             idCliente: cliente.id_cliente,
             idPlan: plan.id_plan,
-            condiciones: `Plan ${plan.nombre} - Nivel ${plan.nivel}`,
+            condiciones: `${plan.nombre} - Nivel ${plan.nivel}`,
             precio: Number(plan.precio_base),
             fechaInicio: inicio.toDate(),
             fechaFin: inicio.add(Number(plan.duracion_semanas), 'week').toDate(),
