@@ -1,8 +1,7 @@
 import inquirer from 'inquirer';
 import chalk from 'chalk';
 import Table from 'cli-table3'
-import PlanEntrenamientoRepository from '../repositories/planRepository.js';
-import Plan from '../models/planEntrenamiento.js'
+import ContratoRepository from '../repositories/contratoRepository.js';
 
 const pausar = async () => {
     console.log('\n');
@@ -15,7 +14,7 @@ const pausar = async () => {
     ]);
 }
 
-const mostrarMenuPlanes = async () => {
+const mostrarMenuContratos = async () => {
     let salir = false;
 
     while(!salir){
@@ -33,9 +32,9 @@ const mostrarMenuPlanes = async () => {
                 message: '¿Qué desea hacer?',
                 choices: [
                     {name: `1. ${chalk.cyan('Buscar')} contrato por ID`, value: 'buscar'},
-                    {name: `2. ${chalk.cyan('Listar')} todos los planes`, value: 'listar'},
-                    {name: `3. ${chalk.cyan('Actualizar')} plan`, value: 'actualizar'},
-                    {name: `4. ${chalk.cyan('Eliminar')} plan`, value: 'eliminar'},
+                    {name: `2. ${chalk.cyan('Listar')} todos los contratos`, value: 'listar'},
+                    {name: `3. ${chalk.cyan('Actualizar')} contrato`, value: 'actualizar'},
+                    {name: `4. ${chalk.cyan('Cancelar')} contrato`, value: 'eliminar'},
                     new inquirer.Separator(),
                     {name: chalk.red('0. Regresar'), value: 'regresar'}
                 ]
@@ -49,20 +48,20 @@ const mostrarMenuPlanes = async () => {
                 console.log(chalk.blue.bold('============================================'));
                 console.log(chalk.blue.bold('=             GYM ALWAYS STRONG            ='));
                 console.log(chalk.blue.bold('=------------------------------------------='));
-                console.log(chalk.blue.bold('=              BÚSQUEDA DE PLAN            ='));
+                console.log(chalk.blue.bold('=            BÚSQUEDA DE CONTRATO          ='));
                 console.log(chalk.blue.bold('============================================'));
-                const { idPlan } = await inquirer.prompt([
+                const { idContrato } = await inquirer.prompt([
                     {
                         type: 'number',
-                        name: 'idPlan',
-                        message: 'Ingrese el ID del plan: '
+                        name: 'idContrato',
+                        message: 'Ingrese el ID del contrato: '
                     }
                 ]);
                 try {
-                    const planRepository = new PlanEntrenamientoRepository();
-                    const planHallado = await planRepository.buscarPorId(idPlan);
+                    const contratoRepository = new ContratoRepository();
+                    const contratoHallado = await contratoRepository.buscarPorId(idContrato);
                     console.log(chalk.blue('============== Plan encontrado ============='));
-                    console.log(JSON.stringify(planHallado, null, 2));
+                    console.log(JSON.stringify(contratoHallado, null, 2));
                 }catch(error){
                     console.log(chalk.red(error.message));
                 };
@@ -74,22 +73,23 @@ const mostrarMenuPlanes = async () => {
                 console.log(chalk.blue.bold('============================================'));
                 console.log(chalk.blue.bold('=             GYM ALWAYS STRONG            ='));
                 console.log(chalk.blue.bold('=------------------------------------------='));
-                console.log(chalk.blue.bold('=             LISTADO DE PLANES            ='));
+                console.log(chalk.blue.bold('=            LISTADO DE CONTRATOS          ='));
                 console.log(chalk.blue.bold('============================================'));
                 
-                const planRepository = new PlanEntrenamientoRepository();
-                const listaPlanes = await planRepository.listar();
+                const contratoRepository = new ContratoRepository();
+                const listaContratos = await contratoRepository.listar();
 
                 // console.log(listaPlanes);
 
                 // 1. Inicializar la tabla definiendo los encabezados con color
                 const table = new Table({
                     head: [
-                        chalk.cyan.bold('ID'),
-                        chalk.cyan.bold('Nombre Plan'),
-                        chalk.cyan.bold('Duración (semanas)'),
-                        chalk.cyan.bold('Nivel'),
-                        chalk.cyan.bold('Precio Base')
+                        chalk.cyan.bold('id_contrato'),
+                        chalk.cyan.bold('id_cliente'),
+                        chalk.cyan.bold('id_plan'),
+                        chalk.cyan.bold('condiciones'),
+                        chalk.cyan.bold('precio'),
+                        chalk.cyan.bold('fecha_fin')
                     ],
                     chars: {
                         'top': '═', 'top-mid': '╤', 'top-left': '╔', 'top-right': '╗',
@@ -100,13 +100,14 @@ const mostrarMenuPlanes = async () => {
                 });
 
                 // 2. Recorrer el listado e insertar las filas
-                listaPlanes.forEach(plan => {
+                listaContratos.forEach(contrato => {
                     table.push([
-                        plan.id_plan,
-                        plan.nombre,
-                        plan.duracion_semanas,
-                        plan.nivel,
-                        plan.precio_base
+                        contrato.id_contrato,
+                        contrato.id_cliente,
+                        contrato.id_plan,
+                        contrato.condiciones,
+                        contrato.precio,
+                        contrato.fecha_fin
                     ]);
                 });
 
@@ -115,54 +116,39 @@ const mostrarMenuPlanes = async () => {
 
                 await pausar();
                 break;
+
             case 'actualizar':
                 console.clear()
                 console.log(chalk.blue.bold('============================================'));
                 console.log(chalk.blue.bold('=             GYM ALWAYS STRONG            ='));
                 console.log(chalk.blue.bold('=------------------------------------------='));
-                console.log(chalk.blue.bold('=            ACTUALIZACIÓN PLAN            ='));
+                console.log(chalk.blue.bold('=         ACTUALIZACIÓN DE CONTRATO        ='));
                 console.log(chalk.blue.bold('============================================'));
-                const { idPlanUP } = await inquirer.prompt([
+                const { idContratoUP } = await inquirer.prompt([
                     {
                         type: 'number',
-                        name: 'idPlanUP',
-                        message: 'Ingrese el ID del plan a actualizar: '
+                        name: 'idContratoUP',
+                        message: 'Ingrese el ID del contrato a actualizar: '
                     }
                 ]);
-                const actualizarPlan = await inquirer.prompt([
+                const actualizarContrato = await inquirer.prompt([
                     {
                         type: 'input',
-                        name: 'nombre',
-                        message: 'Ingrese el nombre del plan: '
-                    },
-                    {
-                        type: 'number',
-                        name: 'duracionSemanas',
-                        message: 'Ingrese la duración del plan en semanas: '
+                        name: 'fechaFin',
+                        message: 'Ingrese la nueva fecha fin del contrato: '
                     },
                     {
                         type: 'input',
-                        name: 'metasFisicas',
-                        message: 'Ingrese las metas físicas del plan: '
-                    },
-                    {
-                        type: 'input',
-                        name: 'nivel',
-                        message: 'Ingrese el nivel del plan: '
-                    },
-                    {
-                        type: 'number',
-                        name: 'precioBase',
-                        message: 'Ingrese el precio base del plan: '
+                        name: 'estado',
+                        message: 'Ingrese el estado del plan: '
                     }
                 ]);
                 try {
-                    const plan = new Plan(actualizarPlan)
-                    const planRepository = new PlanEntrenamientoRepository();
-                    await planRepository.actualizar(idPlanUP, plan);
-                    const planActual = await planRepository.buscarPorId(idPlanUP);
-                    console.log(chalk.blue('============ Cliente actualizado ==========='));
-                    console.log(JSON.stringify(planActual, null, 2));
+                    const contratoRepository = new ContratoRepository();
+                    await contratoRepository.actualizar(idContratoUP, actualizarContrato);
+                    const contratoActual = await contratoRepository.buscarPorId(idContratoUP);
+                    console.log(chalk.blue('============ Contrato actualizado ==========='));
+                    console.log(JSON.stringify(contratoActual, null, 2));
                 } catch (error) {
                     console.log(chalk.red(error.message));
                 }
@@ -173,19 +159,19 @@ const mostrarMenuPlanes = async () => {
                 console.log(chalk.blue.bold('============================================'));
                 console.log(chalk.blue.bold('=             GYM ALWAYS STRONG            ='));
                 console.log(chalk.blue.bold('=------------------------------------------='));
-                console.log(chalk.blue.bold('=            ELIMINACIÓN DE PLAN           ='));
+                console.log(chalk.blue.bold('=          CANCELACIÓN DE CONTRATO         ='));
                 console.log(chalk.blue.bold('============================================'));
-                const { idPlanDE } = await inquirer.prompt([
+                const { idContratoDE } = await inquirer.prompt([
                     {
                         type: 'number',
-                        name: 'idPlanDE',
-                        message: 'Ingrese el ID del plan: '
+                        name: 'idContratoDE',
+                        message: 'Ingrese el ID del contrato: '
                     }
                 ]);
                 try {
-                    const planRepository = new PlanEntrenamientoRepository();
-                    await planRepository.eliminar(idPlanDE);
-                    console.log(chalk.blue('============== Plan eliminado =============='));
+                    const contratoRepository = new ContratoRepository();
+                    await contratoRepository.eliminar(idContratoDE);
+                    console.log(chalk.blue('============== Contrato cancelado =============='));
                 }catch(error){
                     console.log(chalk.red(error.message));
                 };
@@ -198,4 +184,4 @@ const mostrarMenuPlanes = async () => {
     }
 }
 
-export default mostrarMenuPlanes;
+export default mostrarMenuContratos;
