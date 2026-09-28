@@ -1,9 +1,10 @@
 class Cliente{
-    constructor({nombre, telefono, correo, fechaIngreso}){
+    constructor({nombre, telefono, correo, fechaIngreso, estado}){
         this.nombre = nombre;
         this.telefono = telefono;
         this.correo = correo;
         this.fechaIngreso = fechaIngreso;
+        this.estado = estado;
         this.validar();
     }
 
@@ -23,15 +24,15 @@ class Cliente{
 export default Cliente;
 
 
-/*
-Prueba de creación de la clase:
 
-const cliente = new Cliente({
-    nombre: "Ana",
-    telefono: "31003100",
-    correo: "analitiac@example.com",
-    fechaIngreso: new Date()
-});
+//Prueba de creación de la clase:
 
-console.log("Clase Cliente creada correctamente:", cliente);
-*/
+// const cliente = new Cliente({
+//     nombre: "Ana",
+//     telefono: "31003100",
+//     correo: "analitiac@example.com",
+//     fechaIngreso: new Date(),
+//     estado: 'activo'
+// });
+
+// console.log("Clase Cliente creada correctamente:", cliente);
