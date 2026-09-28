@@ -1,5 +1,6 @@
 import menuClientes from './clienteCommands.js';
 import menuPlanes from './planCommands.js';
+import menuContratos from './contratoCommands.js';
 import inquirer from 'inquirer';
 import chalk from 'chalk';
 import pool from '../config/database.js';
@@ -29,12 +30,14 @@ const mostrarMenuPrincipal = async () => {
                 type: 'select',
                 name: 'opcion',
                 message: '¿Qué módulo deseas gestionar?',
+                loop: false,
                 choices: [
                     {name: `1. Gestión de ${chalk.cyan('Clientes')}`, value: 'clientes'},
                     {name: `2. Gestión de ${chalk.cyan('Planes de entrenamiento')}`, value: 'planes'},
-                    {name: `3. Gestión de ${chalk.cyan('Seguimientos')}`, value: 'seguimientos'},
-                    {name: `4. Gestión de ${chalk.cyan('Nutrición')}`, value: 'nutrición'},
-                    {name: `5. Gestión de ${chalk.cyan('Finanzas')}`, value: 'finanzas'},
+                    {name: `3. Gestión de ${chalk.cyan('Contratos')}`, value: 'contratos'},
+                    {name: `4. Gestión de ${chalk.cyan('Seguimientos')}`, value: 'seguimientos'},
+                    {name: `5. Gestión de ${chalk.cyan('Nutrición')}`, value: 'nutrición'},
+                    {name: `6. Gestión de ${chalk.cyan('Finanzas')}`, value: 'finanzas'},
                     new inquirer.Separator(),
                     {name: chalk.red('0. Salir'), value: 'salir'}
                 ]
@@ -48,6 +51,9 @@ const mostrarMenuPrincipal = async () => {
             case 'planes':
                 await menuPlanes();
                 break;
+            case 'contratos':
+                await menuContratos();
+                break; 
             case 'seguimientos':
                 console.log(chalk.yellow(`\nEntrando al módulo de Seguimientos`));
                 await pausar();
