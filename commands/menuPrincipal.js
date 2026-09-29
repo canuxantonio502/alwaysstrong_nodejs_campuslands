@@ -3,6 +3,7 @@ import menuPlanes from './planCommands.js';
 import menuContratos from './contratoCommands.js';
 import menuFinanzas from './finanzasCommands.js';
 import menuSeguimiento from './seguimientoCommands.js';
+import menuNutricion from './nutricionCommands.js';
 import inquirer from 'inquirer';
 import chalk from 'chalk';
 import pool from '../config/database.js';
@@ -60,7 +61,7 @@ const mostrarMenuPrincipal = async () => {
                 await menuSeguimiento();
                 break;
             case 'nutrición':
-                await menuFinanzas();
+                await menuNutricion();
                 break;
             case 'finanzas':
                 await menuFinanzas();
