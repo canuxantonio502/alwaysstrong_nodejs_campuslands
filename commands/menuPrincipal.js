@@ -2,6 +2,7 @@ import menuClientes from './clienteCommands.js';
 import menuPlanes from './planCommands.js';
 import menuContratos from './contratoCommands.js';
 import menuFinanzas from './finanzasCommands.js';
+import menuSeguimiento from './seguimientoCommands.js';
 import inquirer from 'inquirer';
 import chalk from 'chalk';
 import pool from '../config/database.js';
@@ -56,12 +57,10 @@ const mostrarMenuPrincipal = async () => {
                 await menuContratos();
                 break; 
             case 'seguimientos':
-                console.log(chalk.yellow(`\nEntrando al módulo de Seguimientos`));
-                await pausar();
+                await menuSeguimiento();
                 break;
             case 'nutrición':
-                console.log(chalk.yellow(`\nEntrando al módulo de Nutrición`));
-                await pausar();
+                await menuFinanzas();
                 break;
             case 'finanzas':
                 await menuFinanzas();
