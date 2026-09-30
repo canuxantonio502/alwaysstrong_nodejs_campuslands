@@ -128,11 +128,9 @@ Centraliza la construcción de un `Contrato` a partir de un cliente y un plan: c
 
 La planeación completa (roles, sprints, requerimientos funcionales/no funcionales e historias de usuario con criterios de aceptación) está documentada en el PDF adjunto al repositorio: `docs/Planeacion_SCRUM_Always-Strong.pdf`.
 
-Seguimiento del backlog y los sprints en ClickUp: `[enlace al espacio de ClickUp]`.
-
 ## Video de presentación
 
-Video (máx. 7 minutos) explicando los principios y patrones aplicados, dónde se ubican en el código, y una demo funcional por consola: `[enlace al video]`.
+Video explicando los principios y patrones aplicados, dónde se ubican en el código, y una demo funcional por consola: `https://youtu.be/bOwPztq6V8c`.
 
 ---
 
