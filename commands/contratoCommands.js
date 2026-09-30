@@ -3,6 +3,7 @@ import chalk from 'chalk';
 import Table from 'cli-table3'
 import ContratoRepository from '../repositories/contratoRepository.js';
 import ContratoService from '../services/contratoService.js';
+import { formatoFechaMySQL } from '../utils/formatters.js';
 
 const pausar = async () => {
     console.log('\n');
@@ -90,7 +91,8 @@ const mostrarMenuContratos = async () => {
                         chalk.cyan.bold('id_plan'),
                         chalk.cyan.bold('condiciones'),
                         chalk.cyan.bold('precio'),
-                        chalk.cyan.bold('fecha_fin')
+                        chalk.cyan.bold('fecha_fin'),
+                        chalk.cyan.bold('estado')
                     ],
                     chars: {
                         'top': '═', 'top-mid': '╤', 'top-left': '╔', 'top-right': '╗',
@@ -108,7 +110,8 @@ const mostrarMenuContratos = async () => {
                         contrato.id_plan,
                         contrato.condiciones,
                         contrato.precio,
-                        contrato.fecha_fin
+                        formatoFechaMySQL(contrato.fecha_fin),
+                        contrato.estado
                     ]);
                 });
 
