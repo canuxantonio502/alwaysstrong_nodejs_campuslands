@@ -43,6 +43,16 @@ class NutricionRepository {
         );
         return rows;
     }
+
+    // Listamos los planes nutricionales de un contrato espec{ifico}
+
+    async listarPlanesPorContrato(idContrato) {
+        const [rows] = await pool.query(
+            "SELECT * FROM planes_nutricionales WHERE id_contrato = ?",
+            [idContrato]
+        );
+        return rows;
+    }
 }
 
 export default NutricionRepository;

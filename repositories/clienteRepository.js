@@ -21,6 +21,16 @@ class ClienteRepository{
         return rows[0] || null;
     }
 
+    // También podemos buscar por nombre
+
+    async buscarPorNombre(nombre) {
+        const [rows] = await pool.query(
+            "SELECT * FROM clientes WHERE nombre LIKE ?",
+            [`%${nombre}%`]
+        );
+        return rows;
+    }
+
     async listar(){
         const [rows] = await pool.query("SELECT * FROM clientes ORDER BY fecha_ingreso");
         return rows;
