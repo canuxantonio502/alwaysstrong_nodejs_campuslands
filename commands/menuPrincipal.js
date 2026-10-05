@@ -7,6 +7,7 @@ import menuNutricion from './nutricionCommands.js';
 import inquirer from 'inquirer';
 import chalk from 'chalk';
 import pool from '../config/database.js';
+import generarRespaldoProgreso from './exportCommands.js';
 
 const pausar = async () => {
     console.log('\n');
@@ -41,6 +42,7 @@ const mostrarMenuPrincipal = async () => {
                     {name: `4. Gestión de ${chalk.cyan('Seguimientos')}`, value: 'seguimientos'},
                     {name: `5. Gestión de ${chalk.cyan('Nutrición')}`, value: 'nutrición'},
                     {name: `6. Gestión de ${chalk.cyan('Finanzas')}`, value: 'finanzas'},
+                    {name: `7. ${chalk.cyan('Exportat')} progreso de cliente.`, value: 'exportar'},
                     new inquirer.Separator(),
                     {name: chalk.red('0. Salir'), value: 'salir'}
                 ]
@@ -65,6 +67,9 @@ const mostrarMenuPrincipal = async () => {
                 break;
             case 'finanzas':
                 await menuFinanzas();
+                break;
+            case 'exportar':
+                await generarRespaldoProgreso();
                 break;
             case 'salir':
                 salir = true;

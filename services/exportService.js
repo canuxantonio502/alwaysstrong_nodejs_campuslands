@@ -1,10 +1,10 @@
 import fs from 'fs/promises';
 import path from 'path';
-import ClienteRepository from '../repositories/clienteRepository';
-import ContratoRepository from '../repositories/contratoRepository';
-import PlanEntrenamientoRepository from '../repositories/planRepository';
-import SeguimientoRepository from '../repositories/seguimientoRepository';
-import NutricionRepository from '../repositories/nutricionRepository';
+import ClienteRepository from '../repositories/clienteRepository.js';
+import ContratoRepository from '../repositories/contratoRepository.js';
+import PlanEntrenamientoRepository from '../repositories/planRepository.js';
+import SeguimientoRepository from '../repositories/seguimientoRepository.js';
+import NutricionRepository from '../repositories/nutricionRepository.js';
 
 class ExportService {
     constructor() {
@@ -114,7 +114,7 @@ class ExportService {
             nutricion
         };
 
-        // 3. Crear /exports si no existe, y escribir el archivo.
+        // Crear /exports si no existe, y escribir el archivo.
         const carpetaExports = path.resolve('exports');
         await fs.mkdir(carpetaExports, { recursive: true });
 
