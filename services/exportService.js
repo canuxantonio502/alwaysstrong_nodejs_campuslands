@@ -6,6 +6,13 @@ import PlanEntrenamientoRepository from '../repositories/planRepository.js';
 import SeguimientoRepository from '../repositories/seguimientoRepository.js';
 import NutricionRepository from '../repositories/nutricionRepository.js';
 
+const slugify = (texto) =>
+    texto
+        .normalize('NFD').replace(/[\u0300-\u036f]/g, '')
+        .toLowerCase()
+        .replace(/[^a-z0-9]+/g, '_')
+        .replace(/^_+|_+$/g, '');
+
 class ExportService {
     constructor() {
         this.clienteRepository = new ClienteRepository();

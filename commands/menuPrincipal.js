@@ -8,6 +8,8 @@ import inquirer from 'inquirer';
 import chalk from 'chalk';
 import pool from '../config/database.js';
 import generarRespaldoProgreso from './exportCommands.js';
+import menuBackup from './backupCommands.js';
+import menuRestore from './restoreCommands.js';
 
 const pausar = async () => {
     console.log('\n');
@@ -42,7 +44,9 @@ const mostrarMenuPrincipal = async () => {
                     {name: `4. Gestión de ${chalk.cyan('Seguimientos')}`, value: 'seguimientos'},
                     {name: `5. Gestión de ${chalk.cyan('Nutrición')}`, value: 'nutrición'},
                     {name: `6. Gestión de ${chalk.cyan('Finanzas')}`, value: 'finanzas'},
-                    {name: `7. ${chalk.cyan('Exportat')} progreso de cliente.`, value: 'exportar'},
+                    {name: `7. ${chalk.cyan('Exportar')} progreso de cliente`, value: 'exportar'},
+                    {name: `8. ${chalk.cyan('Backup')} (Copia de seguridad)`, value: 'backup'},
+                    {name: `9. ${chalk.cyan('Restore')} (Restaurar copia de seguridad)`, value: 'restore'},
                     new inquirer.Separator(),
                     {name: chalk.red('0. Salir'), value: 'salir'}
                 ]
@@ -70,6 +74,12 @@ const mostrarMenuPrincipal = async () => {
                 break;
             case 'exportar':
                 await generarRespaldoProgreso();
+                break;
+            case 'backup':
+                await menuBackup();
+                break;
+            case 'restore':
+                await menuRestore();
                 break;
             case 'salir':
                 salir = true;
